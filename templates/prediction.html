@@ -1,0 +1,10 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fade-in">Prediction Result</h2>
+<div class="alert {% if prediction == 1 %}alert-danger{% else %}alert-success{% endif %}">
+    <h4>Transaction is: {{ 'Fraudulent' if prediction == 1 else 'Legitimate' }}</h4>
+    <p>Confidence: {{ '%.2f'|format(probability * 100) }}%</p>
+</div>
+<a href="/predict" class="btn btn-primary">Analyze Another Transaction</a>
+{% endblock %}

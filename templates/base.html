@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}UPI Transaction Verifier{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        .slide-up { animation: slideUp 0.5s ease-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .btn {
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .alert {
+            animation: bounce 0.5s ease-out;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        @keyframes bounce {
+            0% { transform: scale(0.3); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .fraud-score {
+            padding: 15px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        .badge {
+            padding: 8px 12px;
+            font-size: 0.9em;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><i class="fas fa-shield-alt"></i> UPI Verifier</a>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/predict"><i class="fas fa-search"></i> Analyze</a>
+            <a class="nav-item nav-link" href="/check_transaction"><i class="fas fa-receipt"></i> Check Transaction</a>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

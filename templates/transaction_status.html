@@ -1,0 +1,67 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fade-in">Transaction Status Result</h2>
+
+{% if error %}
+    <div class="alert alert-danger">
+        <h4>Error</h4>
+        <p>{{ error }}</p>
+    </div>
+{% else %}
+    <div class="alert 
+        {% if transaction.status == 'completed' %}alert-success
+        {% elif transaction.status == 'pending' %}alert-warning
+        {% else %}alert-danger{% endif %}">
+        
+        <h4>Transaction ID: {{ transaction_id }}</h4>
+        <p>Status: {{ transaction.status|title }}</p>
+        <p>Amount: ₹{{ '%.2f'|format(transaction.amount) }}</p>
+        <p>Timestamp: {{ transaction.timestamp }}</p>
+        <p>Merchant: {{ transaction.merchant }}</p>
+
+        {% if transaction.status == 'pending' %}
+            <hr>
+            <h5>Next Steps:</h5>
+            <ul>
+                <li>Please wait for 30 minutes for the transaction to complete</li>
+                <li>Check your bank's mobile app for status</li>
+                <li>Contact support if transaction doesn't complete soon</li>
+            </ul>
+        {% elif transaction.status == 'failed' %}
+            <hr>
+            <h5>Error Details:</h5>
+            <p>{{ transaction.error }}</p>
+            <h5>Next Steps:</h5>
+            <ul>
+                <li>Refund will be processed within 3-5 business days</li>
+                <li>Ensure sufficient balance for future transactions</li>
+                <li>Contact support if refund is delayed</li>
+            </ul>
+        {% elif prediction is not none %}
+            <hr>
+            <h5>Fraud Analysis:</h5>
+            <div class="fraud-score">
+                <p>Risk Level: 
+                    <span class="badge {% if prediction == 1 %}badge-danger{% else %}badge-success{% endif %}">
+                        {{ 'High' if prediction == 1 else 'Low' }}
+                    </span>
+                </p>
+                <p>Confidence: {{ '%.2f'|format(probability * 100) }}%</p>
+            </div>
+            {% if prediction == 1 %}
+                <div class="mt-3">
+                    <h6>Recommended Actions:</h6>
+                    <ul>
+                        <li>Contact your bank immediately</li>
+                        <li>Monitor your account for suspicious activity</li>
+                        <li>Consider changing your UPI PIN</li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <a href="/check_transaction" class="btn btn-primary">Check Another Transaction</a>
+{% endif %}
+{% endblock %}

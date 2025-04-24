@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fade-in">Analyze Transaction</h2>
+<form method="POST" class="slide-up">
+    <div class="form-group">
+        <label>Amount</label>
+        <input type="number" name="amount" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Analyze</button>
+</form>
+{% endblock %}

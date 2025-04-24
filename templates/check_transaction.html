@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fade-in">🔎 UPI Transaction Checker</h2>
+<form method="POST" class="slide-up">
+    <div class="form-group">
+        <label>Transaction ID</label>
+        <input type="text" name="transaction_id" class="form-control" required placeholder="Enter UPI Transaction ID (e.g., TXN123456)">
+    </div>
+    <button type="submit" class="btn btn-primary">Check Status</button>
+</form>
+
+<div class="mt-4">
+    <p>Sample Transaction IDs for testing:</p>
+    <ul>
+        <li>TXN123456 - Completed transaction</li>
+        <li>TXN987654 - Failed transaction</li>
+        <li>TXN456789 - Pending transaction</li>
+    </ul>
+</div>
+{% endblock %}
